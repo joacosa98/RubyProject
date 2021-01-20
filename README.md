@@ -44,8 +44,8 @@ with a "cas" command did not exist
 * &lt;ERROR&gt; the command given does not exists
 * &lt;CLIENT_ERROR&gt; the given format of the command has mistakes
 * VALUE &lt;key&gt; &lt;flag&gt; &lt;bytes&gt; [&lt;cas_unique&gt;]
+  &lt;data block&gt;
 
-&lt;data block&gt;
     * &lt;key&gt; is the key for the item being sent
     * &lt;flag&gt; is the flags value set by the storage command
     * &lt;bytes&gt; is the length of the data block to follow
