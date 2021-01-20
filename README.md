@@ -13,11 +13,11 @@ If the instructions doesn't respect the format described, the server will throw 
 The client can exit the server by sending 'exit'.
   
 ###  Storage commands  
- <command name> <key> <flags> <exptime> <bytes> [noreply]
- cas <key> <flags> <exptime> <bytes> <cas unique> [noreply]  
+ `<command name> <key> <flags> <exptime> <bytes> [noreply]`
+ `cas <key> <flags> <exptime> <bytes> <cas unique> [noreply]`
 
-* <command name> must be one of: add, set, append, prepend, cas  
-* <flags>, <exptime>, <bytes> and <cas unique> must be integers  
+* &lt;command name&gt; must be one of: add, set, append, prepend, cas  
+* &lt;flags&gt;, &lt;exptime&gt;, &lt;bytes&gt; and &lt;cas unique&gt; must be integers  
 
 After, the server expects a value. the client won't send the value until the number of <bytes> has been read.
 
