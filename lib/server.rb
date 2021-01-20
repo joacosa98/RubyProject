@@ -85,14 +85,19 @@ class Server
                 @exp_mutex.synchronize{
                     @expirations.collection.each{|key, value|
                         has_expired = false
-                        if (value.unix and Time.now > value.expiration) #check if it's unix and bigger than now
-                               has_expired = true
-                        end   
+                        if value.expiration != 0 # if value.expiration == 0 never expires
                             
-                        if (!value.unix and (Time.now > value.time_added + value.expiration)) #check if it has exceeded the expiration time in seconds
-                            has_expired = true
+                            #checks if it's unix and bigger than now
+                            if (value.unix and Time.now > value.expiration) 
+                                has_expired = true
+                            end   
+                            
+                            #checks if it has exceeded the expiration time in seconds
+                            if (!value.unix and (Time.now > value.time_added + value.expiration)) 
+                                has_expired = true
+                            end
                         end
-                        
+
                         if has_expired
                             @expirations.delete_data(key)
                             delete_data(key) #deletes it from @memory
