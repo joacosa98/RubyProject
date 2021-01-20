@@ -22,7 +22,7 @@ class Server
         t2 = Thread.new {
             purge_keys()
         }
-        #t2.join
+        
     end
 
 
