@@ -14,6 +14,7 @@ The client can exit the server by sending 'exit'.
   
 ###  Storage commands  
  `<command name> <key> <flags> <exptime> <bytes> [noreply]`
+ 
  `cas <key> <flags> <exptime> <bytes> <cas unique> [noreply]`
 
 * &lt;command name&gt; must be one of: add, set, append, prepend, cas  
@@ -22,32 +23,34 @@ The client can exit the server by sending 'exit'.
 After, the server expects a value. the client won't send the value until the number of <bytes> has been read.
 
 #### Response from the server
-* <ERROR> the command given does not exists
-* <CLIENT_ERROR> the given format of the command has mistakes
-* <STORED> the given key was correctly stored
-* <NOT_STORED> the given key was not stored
-* <EXISTS> the item you are trying to store with
+* &lt;ERROR&gt; the command given does not exists
+* &lt;CLIENT_ERROR&gt; the given format of the command has mistakes
+* &lt;STORED&gt; the given key was correctly stored
+* &lt;NOT_STORED&gt; the given key was not stored
+* &lt;EXISTS&gt; the item you are trying to store with
 a "cas" command has been modified since your last fetch
-* <NOT_FOUND> the item you are trying to store
+* &lt;NOT_FOUND&gt; the item you are trying to store
 with a "cas" command did not exist
 
 
 ### Retrieval commands
-get <keys>
-gets <keys>
+`get <keys>`
+
+`gets <keys>`
+
 * <keys> can be a group of values separated by a white space
 
 #### Response from the server
-* <ERROR> the command given does not exists
-* <CLIENT_ERROR> the given format of the command has mistakes
-* VALUE <key> <flags> <bytes> [<cas unique>]
-<data block>
-    * <key> is the key for the item being sent
-    * <flags> is the flags value set by the storage command
-    * <bytes> is the length of the data block to follow
-    * <cas unique> is a unique integer that uniquely identifies
+* &lt;ERROR&gt; the command given does not exists
+* &lt;CLIENT_ERROR&gt; the given format of the command has mistakes
+* VALUE &lt;key&gt; &lt;flag&gt; &lt;bytes&gt; [&lt;cas_unique&gt;]
+&lt;data block&gt;
+    * &lt;key&gt; is the key for the item being sent
+    * &lt;flag&gt; is the flags value set by the storage command
+    * &lt;bytes&gt; is the length of the data block to follow
+    * &lt;cas_unique&gt; is a unique integer that uniquely identifies
     this specific item
-    * <data block> is the data for this item
+    * &lt;data block&gt; is the data for this item
 
 ## ---UNIT TESTS--- 
 ------------
