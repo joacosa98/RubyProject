@@ -11,18 +11,17 @@ class Server
         @expirations = ServerMemory.new #collection used to save the time expiration info
         @mem_mutex = Mutex.new #mutex used to lock @memory methods
         @exp_mutex = Mutex.new #mutex used to lock @expirations methods
-        @emptyMutex = Mutex.new #mutex used to lock adding new elements
+        @empty_mutex = Mutex.new #mutex used to lock adding new elements
         @check_time = checkTime
     end
 
 
     #It opens two threads to run the server and the purgeKeys methods to run concurrently.     
     def start_server
-        run()
-        t2 = Thread.new {
+        Thread.new {
             purge_keys()
         }
-        
+        run()        
     end
 
 
@@ -131,7 +130,7 @@ class Server
     #Adds a new value to @memory only if there's not already a value for the given key. 
     #If there is, it raises a NOT_STORED exception. Otherwise, it sends a STORED message to the client.
     def add(client, key, flag ,expiration, size, value, no_reply)
-        @emptyMutex.synchronize{
+        @empty_mutex.synchronize{
             if(get_data(key) != nil && !has_expired?(key))
                 raise "NOT_STORED\r\n"  
             end
@@ -154,7 +153,7 @@ class Server
         if(get_data(key) != nil && !has_expired?(key))
             semaphore = get_data(key).semaphore #sets the mutex of the element
         else
-            semaphore = @emptyMutex #sets the mutex to add a new element
+            semaphore = @empty_mutex #sets the mutex to add a new element
         end
         
         semaphore.synchronize{
